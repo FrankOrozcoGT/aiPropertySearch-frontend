@@ -17,7 +17,7 @@
 
     <LoadingSpinner v-if="loading" />
 
-    <ErrorPopup v-if="error" :error="error" :open="!!error" @close="clearError" />
+    <ErrorPopup v-if="error" :error="error" :open="true" @close="clearError" />
 
     <div v-if="!loading && !error && results.length === 0 && searched" class="text-center text-white py-12">
       <p class="text-xl">No se encontraron propiedades</p>
@@ -56,7 +56,18 @@ async function handleSearch(query) {
     results.value = data.results
     sqlQuery.value = data.sql || ''
   } catch (err) {
-    error.value = err.message || 'Error desconocido'
+    // Extraer mensaje del error correctamente
+    let errorMessage = 'Error desconocido'
+    
+    if (typeof err === 'string') {
+      errorMessage = err
+    } else if (err instanceof Error) {
+      errorMessage = err.message
+    } else if (err?.message) {
+      errorMessage = err.message
+    }
+    
+    error.value = errorMessage
     results.value = []
   } finally {
     loading.value = false
