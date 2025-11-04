@@ -10,6 +10,14 @@
         class="flex-1 px-5 py-3 bg-white/20 border border-white/40 text-white placeholder-white/70 rounded-xl focus:outline-none focus:ring-2 focus:ring-white focus:bg-white/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
       />
       <button
+        @click="emitShowSql"
+        :disabled="!hasSql"
+        class="p-2 hover:bg-white/20 rounded-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        title="Ver SQL generado"
+      >
+        <Database class="w-5 h-5 text-white" />
+      </button>
+      <button
         @click="emitSearch"
         :disabled="loading || !query.trim()"
         class="px-6 py-3 bg-white text-indigo-600 font-semibold rounded-xl hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all whitespace-nowrap flex items-center gap-2"
@@ -26,15 +34,20 @@
 
 <script setup>
 import { ref } from 'vue'
+import { Database } from 'lucide-vue-next'
 
-defineProps({
+const props = defineProps({
   loading: {
+    type: Boolean,
+    default: false,
+  },
+  hasSql: {
     type: Boolean,
     default: false,
   },
 })
 
-const emit = defineEmits(['search'])
+const emit = defineEmits(['search', 'show-sql'])
 const query = ref('')
 
 function emitSearch() {
@@ -44,5 +57,9 @@ function emitSearch() {
 
   emit('search', query.value.trim())
   query.value = ''
+}
+
+function emitShowSql() {
+  emit('show-sql')
 }
 </script>

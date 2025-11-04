@@ -1,11 +1,9 @@
 <template>
-  <div class="property-list-container">
-    <div class="mb-4">
-      <h2 class="text-2xl font-bold">
-        Resultados
-        <span class="text-lg text-gray-500 ml-2">({{ properties.length }})</span>
-      </h2>
-    </div>
+  <div>
+    <h2 class="text-2xl font-bold text-white mb-6">
+      Resultados
+      <span class="text-lg text-white/60 ml-2">({{ properties.length }})</span>
+    </h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <PropertyCard

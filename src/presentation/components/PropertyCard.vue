@@ -1,58 +1,58 @@
 <template>
-  <Card class="h-full hover:shadow-lg transition-shadow">
-    <CardHeader>
-      <CardTitle class="line-clamp-2">{{ property.titulo }}</CardTitle>
-      <CardDescription class="flex items-center gap-2 mt-2">
-        <Badge :variant="getTypeVariant(property.tipo)">
+  <div class="h-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl overflow-hidden hover:bg-white/15 hover:border-white/30 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 flex flex-col">
+    <!-- Header -->
+    <div class="p-4 border-b border-white/10">
+      <h3 class="text-lg font-bold text-white line-clamp-2 mb-3">
+        {{ property.titulo }}
+      </h3>
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 bg-indigo-500/30 text-indigo-200 rounded-full text-sm font-medium">
           {{ formatType(property.tipo) }}
-        </Badge>
-        <span class="text-lg font-semibold text-green-600">
+        </span>
+        <span class="text-xl font-bold text-green-400">
           ${{ formatPrice(property.precio) }}
         </span>
-      </CardDescription>
-    </CardHeader>
+      </div>
+    </div>
 
-    <CardContent class="space-y-3">
-      <p v-if="property.descripcion" class="text-sm text-gray-600 line-clamp-2">
+    <!-- Content -->
+    <div class="p-4 space-y-4 flex-1">
+      <p v-if="property.descripcion" class="text-sm text-white/80 line-clamp-2">
         {{ property.descripcion }}
       </p>
 
-      <div class="grid grid-cols-3 gap-2 text-sm">
-        <div v-if="property.habitaciones" class="flex items-center gap-1">
-          <Bed class="w-4 h-4 text-gray-500" />
-          <span>{{ property.habitaciones }} hab</span>
+      <!-- Features Grid -->
+      <div class="grid grid-cols-3 gap-3">
+        <div v-if="property.habitaciones" class="flex items-center gap-2 bg-white/5 rounded-lg p-2">
+          <Bed :size="18" class="text-yellow-400 flex-shrink-0" />
+          <span class="text-sm font-medium text-white">{{ property.habitaciones }}</span>
         </div>
-        <div v-if="property.banos" class="flex items-center gap-1">
-          <Bath class="w-4 h-4 text-gray-500" />
-          <span>{{ property.banos }} baño</span>
+        <div v-if="property.banos" class="flex items-center gap-2 bg-white/5 rounded-lg p-2">
+          <Bath :size="18" class="text-blue-400 flex-shrink-0" />
+          <span class="text-sm font-medium text-white">{{ property.banos }}</span>
         </div>
-        <div v-if="property.area_m2" class="flex items-center gap-1">
-          <Ruler class="w-4 h-4 text-gray-500" />
-          <span>{{ property.area_m2 }} m²</span>
+        <div v-if="property.area_m2" class="flex items-center gap-2 bg-white/5 rounded-lg p-2">
+          <Ruler :size="18" class="text-purple-400 flex-shrink-0" />
+          <span class="text-sm font-medium text-white">{{ property.area_m2 }} m²</span>
         </div>
       </div>
 
-      <div v-if="property.ubicacion" class="flex items-center gap-2 text-sm text-gray-700 pt-2 border-t">
-        <MapPin class="w-4 h-4 text-red-500 flex-shrink-0" />
-        <span class="line-clamp-1">{{ property.ubicacion }}</span>
+      <!-- Location -->
+      <div v-if="property.ubicacion" class="flex items-start gap-2 bg-white/5 rounded-lg p-3 border border-white/10">
+        <MapPin :size="18" class="text-red-400 flex-shrink-0 mt-0.5" />
+        <span class="text-sm text-white/90 line-clamp-2">{{ property.ubicacion }}</span>
       </div>
-    </CardContent>
+    </div>
 
-    <CardFooter v-if="property.fecha_publicacion" class="text-xs text-gray-500">
+    <!-- Footer -->
+    <div v-if="property.fecha_publicacion" class="p-3 bg-white/5 border-t border-white/10 text-xs text-white/60">
       Publicado: {{ formatDate(property.fecha_publicacion) }}
-    </CardFooter>
-  </Card>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import Card from '@/presentation/components/ui/card/Card.vue'
-import CardContent from '@/presentation/components/ui/card/CardContent.vue'
-import CardDescription from '@/presentation/components/ui/card/CardDescription.vue'
-import CardFooter from '@/presentation/components/ui/card/CardFooter.vue'
-import CardHeader from '@/presentation/components/ui/card/CardHeader.vue'
-import CardTitle from '@/presentation/components/ui/card/CardTitle.vue'
-import Badge from '@/presentation/components/ui/badge/Badge.vue'
-import { Bed, Bath, Ruler, MapPin } from 'lucide-react'
+import { Bed, Bath, Ruler, MapPin } from 'lucide-vue-next'
 
 defineProps({
   property: {
@@ -80,15 +80,6 @@ function formatType(type) {
   return types[type?.toLowerCase()] || type
 }
 
-function getTypeVariant(type) {
-  const variants = {
-    casa: 'default',
-    departamento: 'secondary',
-    terreno: 'outline',
-  }
-  return variants[type?.toLowerCase()] || 'default'
-}
-
 function formatDate(date) {
   if (!date) return ''
   try {
@@ -98,7 +89,7 @@ function formatDate(date) {
       day: 'numeric',
     })
   } catch {
-    return date
+    return ''
   }
 }
 </script>
