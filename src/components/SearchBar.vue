@@ -1,18 +1,19 @@
 <template>
-  <div class="search-bar-container w-full max-w-2xl mx-auto">
-    <div class="flex gap-2">
+  <div class="w-full max-w-2xl">
+    <div class="flex gap-3 items-center">
       <input
         v-model="query"
         type="text"
         placeholder="Ej: Terrenos en zona 15"
         @keyup.enter="emitSearch"
         :disabled="loading"
-        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+        class="flex-1 px-5 py-3 bg-white/20 border border-white/40 text-white placeholder-white/70 rounded-xl focus:outline-none focus:ring-2 focus:ring-white focus:bg-white/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
       />
       <Button
         @click="emitSearch"
         :disabled="loading || !query.trim()"
-        :variant="loading ? 'outline' : 'default'"
+        :variant="loading ? 'secondary' : 'default'"
+        class="px-6 py-3 rounded-xl font-semibold whitespace-nowrap"
       >
         <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
         {{ loading ? 'Buscando...' : 'Buscar' }}

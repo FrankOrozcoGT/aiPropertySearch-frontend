@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full h-full bg-gradient-to-br from-indigo-600 to-purple-700 flex flex-col pt-12 overflow-hidden">
-    <div class="text-center text-white mb-8">
+  <div class="w-full h-full bg-gradient-to-br from-indigo-600 to-purple-700 flex flex-col items-center justify-center overflow-hidden">
+    <div class="text-center text-white mb-12">
       <h1 class="text-5xl font-bold mb-2">🏠 Búsqueda de Propiedades</h1>
       <p class="text-lg opacity-90">Encuentra propiedades usando lenguaje natural</p>
     </div>
 
-    <div class="flex justify-center mb-8 px-4">
+    <div class="w-full max-w-2xl px-4 mb-8">
       <SearchBar :loading="loading" @search="handleSearch" />
     </div>
 
@@ -23,7 +23,7 @@
       <p class="text-xl">No se encontraron propiedades</p>
     </div>
 
-    <div v-if="!loading && !error && results.length > 0" class="flex-1 px-4 overflow-y-auto">
+    <div v-if="!loading && !error && results.length > 0" class="w-full px-4 overflow-y-auto max-h-96">
       <PropertyList :properties="results" />
     </div>
   </div>
