@@ -9,22 +9,20 @@
         :disabled="loading"
         class="flex-1 px-5 py-3 bg-white/20 border border-white/40 text-white placeholder-white/70 rounded-xl focus:outline-none focus:ring-2 focus:ring-white focus:bg-white/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
       />
-      <Button
+      <button
         @click="emitSearch"
         :disabled="loading || !query.trim()"
-        :variant="loading ? 'secondary' : 'default'"
-        class="px-6 py-3 rounded-xl font-semibold whitespace-nowrap"
+        class="px-6 py-3 bg-white text-indigo-600 font-semibold rounded-xl hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all whitespace-nowrap"
       >
-        <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
+        <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin inline" />
         {{ loading ? 'Buscando...' : 'Buscar' }}
-      </Button>
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 
 defineProps({
