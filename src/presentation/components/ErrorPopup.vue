@@ -33,7 +33,12 @@
 
 <script setup>
 import { computed } from 'vue'
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
+import Dialog from '@/presentation/components/ui/dialog/Dialog.vue'
+import DialogContent from '@/presentation/components/ui/dialog/DialogContent.vue'
+import DialogFooter from '@/presentation/components/ui/dialog/DialogFooter.vue'
+import DialogHeader from '@/presentation/components/ui/dialog/DialogHeader.vue'
+import DialogTitle from '@/presentation/components/ui/dialog/DialogTitle.vue'
+import DialogDescription from '@/presentation/components/ui/dialog/DialogDescription.vue'
 
 const props = defineProps({
   error: {

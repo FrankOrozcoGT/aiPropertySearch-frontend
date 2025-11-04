@@ -30,12 +30,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { searchProperties } from '@/services/api'
-import SearchBar from '@/components/SearchBar.vue'
-import PropertyList from '@/components/PropertyList.vue'
-import LoadingSpinner from '@/components/LoadingSpinner.vue'
-import ErrorPopup from '@/components/ErrorPopup.vue'
+import { ref, onMounted } from 'vue'
+import { PropertyHttpAdapter } from '@/infrastructure/adapters/http/PropertyHttpAdapter'
+import { SearchPropertyUseCase } from '@/application/use-cases/SearchPropertyUseCase'
+import SearchBar from '@/presentation/components/SearchBar.vue'
+import PropertyList from '@/presentation/components/PropertyList.vue'
+import LoadingSpinner from '@/presentation/components/LoadingSpinner.vue'
+import ErrorPopup from '@/presentation/components/ErrorPopup.vue'
 
 const loading = ref(false)
 const error = ref(null)
@@ -43,20 +44,26 @@ const results = ref([])
 const sqlQuery = ref('')
 const searched = ref(false)
 
+let searchUseCase
+
+onMounted(() => {
+  const repository = new PropertyHttpAdapter()
+  searchUseCase = new SearchPropertyUseCase(repository)
+})
+
 async function handleSearch(query) {
   loading.value = true
   error.value = null
   searched.value = true
 
   try {
-    const data = await searchProperties(query)
+    const data = await searchUseCase.execute(query)
     if (!data || !Array.isArray(data.results)) {
       throw new Error('Respuesta inválida del servidor')
     }
     results.value = data.results
     sqlQuery.value = data.sql || ''
   } catch (err) {
-    // Extraer mensaje del error correctamente
     let errorMessage = 'Error desconocido'
     
     if (typeof err === 'string') {

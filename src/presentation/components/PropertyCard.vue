@@ -45,8 +45,13 @@
 </template>
 
 <script setup>
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import Card from '@/presentation/components/ui/card/Card.vue'
+import CardContent from '@/presentation/components/ui/card/CardContent.vue'
+import CardDescription from '@/presentation/components/ui/card/CardDescription.vue'
+import CardFooter from '@/presentation/components/ui/card/CardFooter.vue'
+import CardHeader from '@/presentation/components/ui/card/CardHeader.vue'
+import CardTitle from '@/presentation/components/ui/card/CardTitle.vue'
+import Badge from '@/presentation/components/ui/badge/Badge.vue'
 import { Bed, Bath, Ruler, MapPin } from 'lucide-react'
 
 defineProps({
